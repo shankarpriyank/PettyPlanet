@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PettyPlanet">
-
+        <activity
+            android:name=".FeedActivity"
+            android:exported="false"
+            android:label="@string/title_activity_feed" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
