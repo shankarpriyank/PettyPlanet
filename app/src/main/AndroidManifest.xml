@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.pettyplanet">
+     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28"/>
+
+    <uses-permission android:name="android.permission.CAMERA"/>
+
 
     <application
         android:allowBackup="true"
@@ -9,11 +17,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PettyPlanet">
+        <provider
+            android:authorities="com.example.pettyplanet.fileprovider"
+            android:name="androidx.core.content.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+        <meta-data
+            android:name="android.support.FILE_PROVIDER_PATHS"
+            android:resource="@xml/fileprovider" />
+        </provider>
         <activity
             android:name=".FeedActivity"
             android:exported="false"
             android:label="@string/title_activity_feed" />
         <activity
+            android:theme="@style/Theme.Design.NoActionBar"
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

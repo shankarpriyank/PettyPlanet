@@ -13,13 +13,13 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.example.pettyplanet.ui.dashboard.DashboardFragment"
+        android:name="com.example.pettyplanet.ui.dashboard.CreatePostFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_createpost" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.example.pettyplanet.ui.notifications.NotificationsFragment"
+        android:name="com.example.pettyplanet.ui.notifications.MyProfileFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_myprofile" />
 </navigation>
