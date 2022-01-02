@@ -1,6 +1,7 @@
 package com.example.pettyplanet
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.drawable.AnimationDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -18,6 +19,11 @@ import com.google.android.gms.tasks.Task
 import kotlinx.android.synthetic.main.activity_main.*
 
 const val RC_SIGN_IN = 123
+
+
+const val SHARED_PREFS = "sharedPrefs"
+const val TEXT = "text"
+const val SWITCH1 = "switch1"
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -98,8 +104,17 @@ class MainActivity : AppCompatActivity() {
         if(User != null) {
 
             val user = User(User.id, User.displayName, User.photoUrl.toString())
+
+
             val usersDao = UserDao()
             usersDao.addUser(user)
+
+
+              val sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE)
+              val editor = sharedPreferences.edit()
+
+            editor.putString(TEXT, User.id)
+            editor.apply()
 
             val mainActivityIntent = Intent(this, FeedActivity::class.java)
             startActivity(mainActivityIntent)

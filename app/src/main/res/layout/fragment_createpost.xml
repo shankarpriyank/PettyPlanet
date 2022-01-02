@@ -7,16 +7,7 @@
     tools:context=".ui.dashboard.CreatePostFragment">
 
 
-    <Button
-        android:id="@+id/post"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:backgroundTint="#D3D3D3"
-        tools:layout_editor_absoluteX="56dp"
-        tools:layout_editor_absoluteY="677dp"
-         android:text="Post"
-        android:textSize="25sp" />
+
 
     <ImageView
         android:id="@+id/post_image"
@@ -97,15 +88,28 @@
     </LinearLayout>
 
 
-
-
     <EditText
         android:id="@+id/desc"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        app:layout_constraintBottom_toBottomOf="@+id/post"
-        android:hint="Add The Description"/>
+        android:layout_height="150dp"
+        android:layout_marginBottom="88dp"
+        android:hint="Add The Description"
+        app:layout_constraintTop_toBottomOf="@id/ll_button"
+        app:layout_constraintBottom_toTopOf="@+id/post_button"
+        tools:layout_editor_absoluteX="0dp"
+        android:layout_marginTop="90dp"/>
 
+    <Button
+        android:id="@+id/post_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#D3D3D3"
+        android:textSize="25sp"
+             android:text="Create Post"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="80dp"
+        tools:layout_editor_absoluteX="0dp" />
 
 
 
