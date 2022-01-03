@@ -29,6 +29,18 @@ class CreatePostViewModel : ViewModel() {
 
     val text: LiveData<String> = _text
 
+    fun imageuri(uri: Uri){
+         val _imguri = MutableLiveData<URI>()
+
+
+
+
+
+
+        val imguri: LiveData<URI> = _imguri
+
+    }
+
 
 
 

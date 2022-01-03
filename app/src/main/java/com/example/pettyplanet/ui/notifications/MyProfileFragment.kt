@@ -10,8 +10,12 @@ import androidx.appcompat.resources.Compatibility.Api21Impl.inflate
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.pettyplanet.FeedActivity
+import com.example.pettyplanet.MainActivity
 import com.example.pettyplanet.databinding.FragmentMyprofileBinding
-
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import kotlinx.android.synthetic.main.fragment_myprofile.view.*
 
 
 class MyProfileFragment : Fragment() {
@@ -38,9 +42,26 @@ class MyProfileFragment : Fragment() {
         notificationsViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
+
+
+        root.logout_button.setOnClickListener {
+            signout()
+        }
         return root
     }
 
+    private fun signout() {
+        val account =  GoogleSignIn.getLastSignedInAccount(requireContext())
+
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
+        // Build a GoogleSignInClient with the options specified by gso.
+        val mGoogleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
+        mGoogleSignInClient.signOut()
+        val mainActivityIntent = Intent(requireContext(), MainActivity::class.java)
+        startActivity(mainActivityIntent)
+    }
 
 
     override fun onDestroyView() {

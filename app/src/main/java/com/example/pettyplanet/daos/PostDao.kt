@@ -6,11 +6,10 @@ import com.example.pettyplanet.models.User
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import kotlinx.coroutines.tasks.await
+
+
 
 
 class PostDao {
@@ -35,9 +34,40 @@ class PostDao {
             }
         }
 
-        fun getPostById(postId: String): Task<DocumentSnapshot> {
-            return postCollections.document(postId).get()
+
+
+    suspend  fun getAllPosts(): List<Post>? {
+
+
+                   val postlist =postCollections.get().await().toObjects(Post::class.java)
+
+
+//              val wait = GlobalScope.launch {
+//                postCollections.get().await()
+//
+//
+//            }
+             postCollections.addSnapshotListener { snapshot, error ->
+                if (snapshot==null || error!=null){
+                    Log.e("FireStore ERR", "$error")
+                    return@addSnapshotListener
+                }else{
+                      val posrlist = snapshot.toObjects(Post::class.java)
+                    for (post in posrlist){
+                        Log.e("Info","$post")
+                    }
+
+                }
+
+            }
+
+            return  postlist
+
+
         }
+
+
+
 
 
 

@@ -143,6 +143,8 @@ class CreatePostFragment : Fragment(),EasyPermissions.PermissionCallbacks {
             Log.e("Input",input)
 
             if (!(input == "" || mImageUri==null )) {
+
+                Toast.makeText(context,"Upload Has Started Please Don't Do Anything ",Toast.LENGTH_SHORT).show()
                 val imageuri = mImageUri
                 postdao = PostDao()
 
@@ -178,7 +180,7 @@ class CreatePostFragment : Fragment(),EasyPermissions.PermissionCallbacks {
                 photoref.putFile(mImageUri!!).continueWithTask { photoUploadTask ->
 
                     Log.e("Storing Photo", "${photoUploadTask.result?.bytesTransferred}")
-                    Toast.makeText(requireContext(),"Upload Has Started Please Don't Do Anything ",Toast.LENGTH_SHORT).show()
+
 
 
                     photoref.downloadUrl
@@ -205,8 +207,14 @@ class CreatePostFragment : Fragment(),EasyPermissions.PermissionCallbacks {
 
                             }
                             Toast.makeText(requireContext(),"Upload Succesfull",Toast.LENGTH_SHORT).show()
-                            val intent = Intent(requireContext(),FeedActivity::class.java)
-                            startActivity(intent)
+
+                            GlobalScope.launch {
+
+                                delay(2000)
+                                val intent = Intent(requireContext(),FeedActivity::class.java)
+                                startActivity(intent)
+                            }
+
 
 
 
