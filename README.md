@@ -24,8 +24,7 @@ Petty planet is an place where you can upload pics of abandoned pets so that the
      <td>Upload Fragment</td>
   </tr>
   <tr>
-    <td>![prev4]< img src = "https://user-images.githubusercontent.com/75121767/148033004-f4537cfa-543a-4bf8-9029-36f4bf583287.jpeg" width=270 height=480>
-</td>
+    <td><img src ="https://user-images.githubusercontent.com/75121767/148033004-f4537cfa-543a-4bf8-9029-36f4bf583287.jpeg" width=270 height=480></td>
     <td><img src="https://user-images.githubusercontent.com/75121767/148033170-8acfe579-ef22-4968-bb5b-d627bef68e93.jpeg" width=270 height=480></td>
     <td><img src="https://user-images.githubusercontent.com/75121767/148033292-e4d3aa2c-ba5d-496c-b2d7-10a6f25172c9.jpeg" width=270 height=480></td>
   </tr>
