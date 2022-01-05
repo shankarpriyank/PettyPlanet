@@ -50,8 +50,8 @@ class HomeRecyclerAdapter():
         Glide.with(holder.binding.root)
             .load(post.ImageURL) // image url
             .placeholder(R.drawable.img) // any placeholder to load at start
-            .error(R.drawable.img)  // any image in case of error
-
+            .error(R.drawable.img)// any image in case of error
+           // .fitCenter()
             .into(holder.binding.imageView)
 
         Glide.with(holder.binding.root)

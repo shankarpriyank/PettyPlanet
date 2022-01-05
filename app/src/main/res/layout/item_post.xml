@@ -48,11 +48,12 @@
         </LinearLayout>
 
         <ImageView
-            android:scaleType="centerCrop"
+            android:scaleType="fitXY"
             android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="350dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             tools:background="@android:color/darker_gray"
+            android:layout_gravity="center"
             />
         <TextView
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"

@@ -60,6 +60,8 @@ import kotlinx.coroutines.tasks.await
 import java.io.ByteArrayOutputStream
 import java.net.URL
 import java.util.*
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.activity_feed.*
 
 
 lateinit var storageRef: StorageReference
@@ -107,6 +109,8 @@ class CreatePostFragment : Fragment(),EasyPermissions.PermissionCallbacks {
 //        dashboardViewModel.text.observe(viewLifecycleOwner, Observer {
 //            textView.text = it
 //        })
+        val navBar: BottomNavigationView = requireActivity().nav_view
+
         binding.opengallery.setOnClickListener {
             if (!hasReadWritePermission()) {
                 Toast.makeText(requireContext(), "Need Permissions", Toast.LENGTH_LONG).show()
@@ -145,6 +149,16 @@ class CreatePostFragment : Fragment(),EasyPermissions.PermissionCallbacks {
             if (!(input == "" || mImageUri==null )) {
 
                 Toast.makeText(context,"Upload Has Started Please Don't Do Anything ",Toast.LENGTH_SHORT).show()
+
+
+
+                  navBar.visibility= View.GONE
+                binding.openCamera.isEnabled = false
+                binding.opengallery.isEnabled= false
+
+                binding.SHOWPROGRESS.visibility = View.VISIBLE
+                binding.postButton.isEnabled = false
+                binding.postImage.visibility = View.INVISIBLE
                 val imageuri = mImageUri
                 postdao = PostDao()
 
@@ -193,9 +207,16 @@ class CreatePostFragment : Fragment(),EasyPermissions.PermissionCallbacks {
 
                     .addOnCompleteListener {
                         if (it.isSuccessful) {
+                            navBar.visibility= View.VISIBLE
+                            binding.SHOWPROGRESS.visibility = View.INVISIBLE
+                            binding.postButton.isEnabled = true
+                            binding.postImage.visibility = View.VISIBLE
+                            binding.openCamera.isEnabled = true
+                            binding.opengallery.isEnabled= true
 
 
                             GlobalScope.launch(Dispatchers.IO) {
+
 
 
                                 postdao.addPost(
@@ -205,12 +226,15 @@ class CreatePostFragment : Fragment(),EasyPermissions.PermissionCallbacks {
                                 )
 
 
+
+
+
                             }
                             Toast.makeText(requireContext(),"Upload Succesfull",Toast.LENGTH_SHORT).show()
 
                             GlobalScope.launch {
 
-                                delay(2000)
+                                delay(1000)
                                 val intent = Intent(requireContext(),FeedActivity::class.java)
                                 startActivity(intent)
                             }
@@ -230,6 +254,13 @@ class CreatePostFragment : Fragment(),EasyPermissions.PermissionCallbacks {
 //                                Toast.LENGTH_SHORT
 //                            ).show()
                         } else  {
+                            navBar.visibility= View.GONE
+
+                            binding.SHOWPROGRESS.visibility = View.INVISIBLE
+                            binding.postButton.isEnabled = true
+                            binding.postImage.visibility = View.VISIBLE
+                            binding.openCamera.isEnabled = true
+                            binding.opengallery.isEnabled= true
                             Toast.makeText(
                                 requireContext(),
                                 "Error Occured While Uploading",

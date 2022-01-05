@@ -6,6 +6,7 @@ import com.example.pettyplanet.models.User
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import kotlinx.coroutines.*
 import kotlinx.coroutines.tasks.await
 
@@ -38,8 +39,10 @@ class PostDao {
 
     suspend  fun getAllPosts(): List<Post>? {
 
+              val postCollectionsforget = db.collection("posts").orderBy("createdAt",Query.Direction.DESCENDING)
 
-                   val postlist =postCollections.get().await().toObjects(Post::class.java)
+
+                   val postlist =postCollectionsforget.get().     await().toObjects(Post::class.java)
 
 
 //              val wait = GlobalScope.launch {
