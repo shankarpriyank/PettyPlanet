@@ -46,6 +46,8 @@ Petty planet is an place where you can upload pics of abandoned pets so that the
 * For now I will be focusing to make changes to the UI as the current UI is not attractive at all
  * The upload fragment needs a lot of work to be done , the whole upload process can be done asynchronously without locking the user at upload fragment while the upload isn't complete 
 * Also I wish to cache the posts using Room Db so that while the new posts are still being fetched the users has something to interact with 
+* Implement other login methods such as Facebook Login
+
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
