@@ -2,6 +2,16 @@
 
 Petty planet is an place where you can upload pics of abandoned pets so that the people interested to adopt pets can connect adopt the pets they wish to adopt.
 
+* Used Firebase to storage to store the Images uploaded by the users and then waited for the imageurl to come , after the imageurl is successfully generated , I used the imageurl along with the other information provided by the user to create a post in the Firebase Realtime Database
+* Implemented Standard Google Login to authenticate users of my app
+* Integrated Camera and Gallery acess in the app so that users can users can upload images using any medium they prefer
+* The app uses many fragments and it consumes the jetpack navigation components to navigate around different fragments
+* Used Firebase to store the user details online and used SharedPreferences to store the user information in the device itself
+* Used ViewBinding and followed MVVM to make the data persistent even if the views are recreated
+
+
+
+
 
 ## Technologies Used
 [Kotlin](https://choosealicense.com/licenses/mit/)
@@ -32,12 +42,11 @@ Petty planet is an place where you can upload pics of abandoned pets so that the
  </table>
 
 
-## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-For now I will be focusing to make changes to the UI as the current UI is not attractive at all
-Then during the uploading I am also planning to add a progressbar to show users the progress of their upload
-Also at very few places the data is not very persistent so I have plans to rectify that too
+## Todo/Future Of The Project
+* For now I will be focusing to make changes to the UI as the current UI is not attractive at all
+ * The upload fragment needs a lot of work to be done , the whole upload process can be done asynchronously without locking the user at upload fragment while the upload isn't complete 
+* Also I wish to cache the posts using Room Db so that while the new posts are still being fetched the users has something to interact with 
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
+
