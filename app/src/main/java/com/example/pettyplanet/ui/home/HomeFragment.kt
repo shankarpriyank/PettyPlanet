@@ -1,7 +1,6 @@
 package com.example.pettyplanet.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +10,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pettyplanet.daos.PostDao
 import com.example.pettyplanet.databinding.FragmentHomeBinding
+import com.example.pettyplanet.models.SavedPosts
 import com.example.pettyplanet.ui.createpost.postdao
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class HomeFragment : Fragment(), PostClicked {
 
 
@@ -67,8 +72,24 @@ class HomeFragment : Fragment(), PostClicked {
     }
 
     override fun onItemClick(post: Int) {
-        val test = feedAdapter.currentList.get(post).text
-        Toast.makeText(requireContext(), test, Toast.LENGTH_SHORT).show()
-        Log.d("Click Working", test)
+        val post = feedAdapter.currentList[post]
+        val postTobeSaved = SavedPosts(
+            post.text,
+            post.createdBy.displayName!!,
+            post.createdAt,
+            post.ImageURL,
+            System.currentTimeMillis()
+        )
+
+
+
+        GlobalScope.launch(Dispatchers.IO) {
+
+            homeViewModel.savepost(postTobeSaved)
+        }
+
+        Toast.makeText(requireContext(), "Posts Saved", Toast.LENGTH_LONG).show()
+
+
     }
 }

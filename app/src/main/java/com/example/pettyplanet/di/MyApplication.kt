@@ -1,4 +1,4 @@
-package com.example.pettyplanet.util
+package com.example.pettyplanet.di
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

@@ -6,11 +6,18 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.pettyplanet.daos.PostDao
 import com.example.pettyplanet.models.Post
+import com.example.pettyplanet.models.SavedPosts
+import com.example.pettyplanet.repository.PostsRepository
 import com.example.pettyplanet.ui.createpost.postdao
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HomeViewModel : ViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    private val repo: PostsRepository
+) : ViewModel() {
 
 
     private val _text = MutableLiveData<String>().apply {
@@ -40,6 +47,11 @@ class HomeViewModel : ViewModel() {
 
         }
 
+
+    }
+
+    suspend fun savepost(post: SavedPosts) {
+        repo.insertPost(post)
 
     }
 
