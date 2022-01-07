@@ -12,13 +12,12 @@ import com.bumptech.glide.Glide
 import com.example.pettyplanet.R
 import com.example.pettyplanet.databinding.ItemPostBinding
 import com.example.pettyplanet.models.Post
-import java.lang.System.load
 
-class HomeRecyclerAdapter():
-    ListAdapter<Post,HomeRecyclerAdapter.FeedViewHolder >(FeedDiffCallBack()) {
+class HomeRecyclerAdapter(private val listener: PostClicked) :
+    ListAdapter<Post, HomeRecyclerAdapter.FeedViewHolder>(FeedDiffCallBack()) {
 
 
-    class FeedViewHolder(val binding:ItemPostBinding) :
+    class FeedViewHolder(val binding: ItemPostBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     private class FeedDiffCallBack : DiffUtil.ItemCallback<Post>() {
@@ -37,7 +36,16 @@ class HomeRecyclerAdapter():
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
         val inflater: LayoutInflater = parent.context.getSystemService(LayoutInflater::class.java)
         val binding = ItemPostBinding.inflate(inflater, parent, false)
-        return FeedViewHolder(binding)
+        val viewholder = FeedViewHolder(binding)
+        binding.root.setOnLongClickListener {
+            listener.onItemClick(viewholder.adapterPosition)
+            true
+        }
+
+
+
+
+        return viewholder
     }
 
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
@@ -65,4 +73,8 @@ class HomeRecyclerAdapter():
     }
 
 
+}
+
+interface PostClicked {
+    fun onItemClick(post: Int)
 }

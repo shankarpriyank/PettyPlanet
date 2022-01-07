@@ -1,14 +1,12 @@
 package com.example.pettyplanet
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.graphics.drawable.AnimationDrawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.pettyplanet.daos.UserDao
 import com.example.pettyplanet.models.User
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -32,14 +30,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-         //Animate Gradient
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        //Animate Gradient
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
+        )
         val animDrawable = root_layout.background as AnimationDrawable
         animDrawable.setEnterFadeDuration(10)
         animDrawable.setExitFadeDuration(5000)
         animDrawable.start()
-
-
 
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -66,7 +65,6 @@ class MainActivity : AppCompatActivity() {
     private fun signin() {
 
 
-
     }
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -85,14 +83,14 @@ class MainActivity : AppCompatActivity() {
         try {
             val account = completedTask.getResult(ApiException::class.java)
 
-             updateUI(account)
+            updateUI(account)
 //            val mainActivityIntent = Intent(this, FeedActivity::class.java)
 //            startActivity(mainActivityIntent)
 //            finish()
 
         } catch (e: ApiException) {
-            Log.e("Err","$e")
-            Toast.makeText(this,"Login Failed",Toast.LENGTH_LONG).show()
+            Log.e("Err", "$e")
+            Toast.makeText(this, "Login Failed", Toast.LENGTH_LONG).show()
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
 
@@ -100,8 +98,9 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
     private fun updateUI(User: GoogleSignInAccount?) {
-        if(User != null) {
+        if (User != null) {
 
             val user = User(User.id, User.displayName, User.photoUrl.toString())
 
@@ -110,8 +109,8 @@ class MainActivity : AppCompatActivity() {
             usersDao.addUser(user)
 
 
-              val sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE)
-              val editor = sharedPreferences.edit()
+            val sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
 
             editor.putString(TEXT, User.id)
             editor.apply()
