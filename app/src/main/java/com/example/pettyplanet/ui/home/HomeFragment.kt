@@ -4,10 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.pettyplanet.R
 import com.example.pettyplanet.adapters.HomeRecyclerAdapter
 import com.example.pettyplanet.adapters.PostClicked
 import com.example.pettyplanet.daos.PostDao
@@ -18,6 +19,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToastStyle
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(), PostClicked {
@@ -92,8 +95,15 @@ class HomeFragment : Fragment(), PostClicked {
 
 
         }
-
-        Toast.makeText(requireContext(), "Posts Saved", Toast.LENGTH_LONG).show()
+        MotionToast.darkColorToast(
+            requireActivity(),
+            "Post Saved",
+            "Post Saved Successfully",
+            MotionToastStyle.SUCCESS,
+            MotionToast.GRAVITY_BOTTOM,
+            MotionToast.LONG_DURATION,
+            ResourcesCompat.getFont(requireContext(), R.font.cherry_cream_soda)
+        )
 
 
     }

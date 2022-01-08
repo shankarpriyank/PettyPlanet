@@ -17,15 +17,19 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat.getExternalFilesDirs
 import androidx.core.content.FileProvider
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.example.pettyplanet.R
 import com.example.pettyplanet.daos.PostDao
 import com.example.pettyplanet.databinding.FragmentCreatepostBinding
 import com.vmadalin.easypermissions.EasyPermissions
 import com.vmadalin.easypermissions.dialogs.SettingsDialog
 import dagger.hilt.android.AndroidEntryPoint
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToastStyle
 import java.io.File
 
 
@@ -67,6 +71,7 @@ class CreatePostFragment : Fragment(), EasyPermissions.PermissionCallbacks {
 
         binding.opengallery.setOnClickListener {
             if (!hasReadWritePermission()) {
+
 
 
                 Toast.makeText(requireContext(), "Need Permissions", Toast.LENGTH_LONG).show()
@@ -112,11 +117,35 @@ class CreatePostFragment : Fragment(), EasyPermissions.PermissionCallbacks {
 
                 createpostViewModel.refUpload.observe(viewLifecycleOwner, Observer {
                     if (it == "Successful") {
+
+                        MotionToast.createToast(
+                            requireActivity(),
+                            "Hurray success 😍",
+                            "Upload Completed successfully!",
+                            MotionToastStyle.SUCCESS,
+                            MotionToast.GRAVITY_BOTTOM,
+                            MotionToast.LONG_DURATION,
+                            ResourcesCompat.getFont(requireContext(), R.font.cherry_cream_soda)
+                        )
+
                         Toast.makeText(activity, "Uploaded Successfully", Toast.LENGTH_SHORT).show()
 
                     }
 
                     if (it == "Unsuccessful") {
+
+
+                        MotionToast.createToast(
+                            requireActivity(),
+                            "Failed ☹",
+                            "Upload Unsuccessful!",
+                            MotionToastStyle.ERROR,
+                            MotionToast.GRAVITY_BOTTOM,
+                            MotionToast.LONG_DURATION,
+                            ResourcesCompat.getFont(requireContext(), R.font.cherry_cream_soda)
+                        )
+
+                        Toast.makeText(activity, "Uploaded Successfully", Toast.LENGTH_SHORT).show()
                         Toast.makeText(activity, "Upload Unsuccessful", Toast.LENGTH_SHORT).show()
 
                     }

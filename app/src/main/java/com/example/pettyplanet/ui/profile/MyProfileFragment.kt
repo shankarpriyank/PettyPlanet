@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pettyplanet.MainActivity
+import com.example.pettyplanet.R
 import com.example.pettyplanet.adapters.SavedPostClicked
 import com.example.pettyplanet.adapters.SavedPostsRecyclerAdapter
 import com.example.pettyplanet.databinding.FragmentMyprofileBinding
@@ -19,6 +21,8 @@ import kotlinx.android.synthetic.main.fragment_myprofile.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToastStyle
 
 @AndroidEntryPoint
 class MyProfileFragment : Fragment(), SavedPostClicked {
@@ -95,7 +99,15 @@ class MyProfileFragment : Fragment(), SavedPostClicked {
             profileViewModel.deleteSavedPost(savedpost)
 
         }
-        profileViewModel.updateFeed()
+        MotionToast.darkColorToast(
+            requireActivity(),
+            "Post Deleted ☹",
+            "Post Deleted Successfully",
+            MotionToastStyle.ERROR,
+            MotionToast.GRAVITY_BOTTOM,
+            MotionToast.LONG_DURATION,
+            ResourcesCompat.getFont(requireContext(), R.font.cherry_cream_soda)
+        )
 
 
     }
