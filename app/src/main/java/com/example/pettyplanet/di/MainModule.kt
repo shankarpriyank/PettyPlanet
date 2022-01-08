@@ -36,7 +36,9 @@ object MainModule {
             app,
             SavedPostsDatabase::class.java,
             SavedPostsDatabase.DATABASE_NAME
-        ).build()
+        )
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
     @Provides

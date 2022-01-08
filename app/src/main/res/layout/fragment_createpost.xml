@@ -17,12 +17,15 @@
 
         android:contentDescription="TODO" />
 
-    <ProgressBar
-        android:id="@+id/SHOW_PROGRESS"
-        app:layout_constraintTop_toTopOf="parent"
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/upload_animation"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:visibility="invisible"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_fileName="uploadinganimation.json"
+        android:visibility="invisible"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true" />
 
     <LinearLayout
         android:id="@+id/ll_button"

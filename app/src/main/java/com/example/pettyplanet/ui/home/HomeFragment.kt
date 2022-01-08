@@ -8,6 +8,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.pettyplanet.adapters.HomeRecyclerAdapter
+import com.example.pettyplanet.adapters.PostClicked
 import com.example.pettyplanet.daos.PostDao
 import com.example.pettyplanet.databinding.FragmentHomeBinding
 import com.example.pettyplanet.models.SavedPosts
@@ -78,6 +80,7 @@ class HomeFragment : Fragment(), PostClicked {
             post.createdBy.displayName!!,
             post.createdAt,
             post.ImageURL,
+            post.createdBy.imageUrl,
             System.currentTimeMillis()
         )
 
@@ -86,6 +89,8 @@ class HomeFragment : Fragment(), PostClicked {
         GlobalScope.launch(Dispatchers.IO) {
 
             homeViewModel.savepost(postTobeSaved)
+
+
         }
 
         Toast.makeText(requireContext(), "Posts Saved", Toast.LENGTH_LONG).show()

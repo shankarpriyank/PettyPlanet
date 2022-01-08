@@ -29,8 +29,15 @@ constructor(
     val refUpload: LiveData<String> = _refUpload
 
 
+    private val _status = MutableLiveData<String>().apply {
+        value = "Default"
+    }
+    val status: LiveData<String> = _status
+
+
     fun post(ImageUri: Uri?, Description: String) {
         Log.d("userID", userID)
+        _status.postValue("Uploading")
 
 
         val postDao = PostDao()
@@ -76,6 +83,8 @@ constructor(
 
 
                 }
+
+                _status.postValue("Uploading Stopped")
 
 
             }

@@ -13,6 +13,7 @@ data class SavedPosts(
     val createdBy: String,
     val createdAt: Long,
     val ImageURL: String,
+    val userImageURL: String?,
     @PrimaryKey
     val id: Long
 

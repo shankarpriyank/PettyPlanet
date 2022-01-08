@@ -113,5 +113,10 @@ dependencies {
     // Activity KTX for viewModels()
     implementation "androidx.activity:activity-ktx:1.4.0"
 
+    //Lottie
+    implementation 'com.airbnb.android:lottie:4.2.2'
+     //Motion Toast
+    implementation 'com.github.Spikeysanju:MotionToast:1.4'
+
 
 }

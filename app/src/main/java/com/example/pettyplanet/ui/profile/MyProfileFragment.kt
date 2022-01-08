@@ -5,21 +5,28 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pettyplanet.MainActivity
+import com.example.pettyplanet.adapters.SavedPostClicked
+import com.example.pettyplanet.adapters.SavedPostsRecyclerAdapter
 import com.example.pettyplanet.databinding.FragmentMyprofileBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_myprofile.view.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
+class MyProfileFragment : Fragment(), SavedPostClicked {
 
-class MyProfileFragment : Fragment() {
-
-    private lateinit var notificationsViewModel: MyProfileViewModel
+    private lateinit var profileViewModel: MyProfileViewModel
     private var _binding: FragmentMyprofileBinding? = null
+
+    private val feedAdapter = SavedPostsRecyclerAdapter(this)
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -30,17 +37,32 @@ class MyProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        notificationsViewModel =
+        profileViewModel =
             ViewModelProvider(this).get(MyProfileViewModel::class.java)
 
         _binding = FragmentMyprofileBinding.inflate(inflater, container, false)
         val root: View = binding.root
+//
+//        val textView: TextView = binding.textNotifications
+//        notificationsViewModel.text.observe(viewLifecycleOwner, Observer {
+//            textView.text = it
+//        })
 
-        val textView: TextView = binding.textNotifications
-        notificationsViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
 
+        profileViewModel.updateFeed()
+
+
+        binding.rvsaved.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvsaved.adapter = feedAdapter
+
+
+
+        profileViewModel.feed.observe(viewLifecycleOwner) {
+
+            feedAdapter.submitList(it)
+
+
+        }
 
         root.logout_button.setOnClickListener {
             signout()
@@ -65,6 +87,17 @@ class MyProfileFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onItemClick(post: Int) {
+        val savedpost = feedAdapter.currentList[post]
+        GlobalScope.launch(Dispatchers.IO) {
+            profileViewModel.deleteSavedPost(savedpost)
+
+        }
+        profileViewModel.updateFeed()
+
+
     }
 
 

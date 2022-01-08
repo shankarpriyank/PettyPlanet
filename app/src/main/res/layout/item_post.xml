@@ -48,6 +48,7 @@
         </LinearLayout>
 
         <ImageView
+            android:scaleType="center"
 
             android:id="@+id/imageView"
             android:layout_width="match_parent"

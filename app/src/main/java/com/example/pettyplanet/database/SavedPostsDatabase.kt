@@ -8,7 +8,7 @@ import com.example.pettyplanet.models.SavedPosts
 
 @Database(
     entities = [SavedPosts::class],
-    version = 1
+    version = 2
 )
 abstract class SavedPostsDatabase : RoomDatabase() {
 

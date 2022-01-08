@@ -67,6 +67,8 @@ class CreatePostFragment : Fragment(), EasyPermissions.PermissionCallbacks {
 
         binding.opengallery.setOnClickListener {
             if (!hasReadWritePermission()) {
+
+
                 Toast.makeText(requireContext(), "Need Permissions", Toast.LENGTH_LONG).show()
 
 
@@ -119,6 +121,7 @@ class CreatePostFragment : Fragment(), EasyPermissions.PermissionCallbacks {
 
                     }
 
+
                 })
 
 
@@ -132,6 +135,9 @@ class CreatePostFragment : Fragment(), EasyPermissions.PermissionCallbacks {
 
 
         }
+
+
+
 
 
         return root
@@ -279,6 +285,32 @@ class CreatePostFragment : Fragment(), EasyPermissions.PermissionCallbacks {
                 super.onActivityResult(requestCode, resultCode, data)
             }
         }
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        createpostViewModel.status.observe(viewLifecycleOwner) {
+            if (it == "Uploading") {
+                binding.postButton.isEnabled = false
+                binding.opengallery.isEnabled = false
+                binding.openCamera.isEnabled = false
+                binding.postImage.visibility = View.INVISIBLE
+                binding.uploadAnimation.visibility = View.VISIBLE
+                binding.postImage.setImageResource(0)
+            }
+            if (it == "Uploading Stopped") {
+                binding.postButton.isEnabled = true
+                binding.opengallery.isEnabled = true
+                binding.openCamera.isEnabled = true
+                binding.postImage.visibility = View.VISIBLE
+                binding.uploadAnimation.visibility = View.INVISIBLE
+            }
+
+
+        }
+
+
     }
 
 

@@ -1,6 +1,5 @@
 package com.example.pettyplanet.daos
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.pettyplanet.models.SavedPosts
 
@@ -9,10 +8,10 @@ import com.example.pettyplanet.models.SavedPosts
 interface SavedPostsDao {
 
     @Query("SELECT * FROM posts")
-    fun getPosts(): LiveData<List<SavedPosts>>
+    fun getPosts(): List<SavedPosts>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun inserPost(post: SavedPosts)
+    suspend fun insertPost(post: SavedPosts): Long
 
     @Delete
     suspend fun deletePost(post: SavedPosts)

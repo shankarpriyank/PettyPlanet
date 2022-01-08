@@ -1,4 +1,4 @@
-package com.example.pettyplanet.ui.home
+package com.example.pettyplanet.adapters
 
 import android.annotation.SuppressLint
 import android.os.Build
@@ -11,22 +11,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.pettyplanet.R
 import com.example.pettyplanet.databinding.ItemPostBinding
-import com.example.pettyplanet.models.Post
+import com.example.pettyplanet.models.SavedPosts
 
-class HomeRecyclerAdapter(private val listener: PostClicked) :
-    ListAdapter<Post, HomeRecyclerAdapter.FeedViewHolder>(FeedDiffCallBack()) {
+class SavedPostsRecyclerAdapter(private val listener: SavedPostClicked) :
+    ListAdapter<SavedPosts, SavedPostsRecyclerAdapter.FeedViewHolder>(FeedDiffCallBack()) {
 
 
     class FeedViewHolder(val binding: ItemPostBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    private class FeedDiffCallBack : DiffUtil.ItemCallback<Post>() {
-        override fun areItemsTheSame(oldItem: Post, newItem: Post): Boolean {
+    private class FeedDiffCallBack : DiffUtil.ItemCallback<SavedPosts>() {
+        override fun areItemsTheSame(oldItem: SavedPosts, newItem: SavedPosts): Boolean {
             return oldItem == newItem
         }
 
         @SuppressLint("DiffUtilEquals")
-        override fun areContentsTheSame(oldItem: Post, newItem: Post): Boolean {
+        override fun areContentsTheSame(oldItem: SavedPosts, newItem: SavedPosts): Boolean {
             return oldItem.toString() == newItem.toString()
         }
 
@@ -52,18 +52,18 @@ class HomeRecyclerAdapter(private val listener: PostClicked) :
         val post = getItem(position)
 
         holder.binding.captionTextView.text = post.text
-        holder.binding.username.text = post.createdBy.displayName
+        holder.binding.username.text = post.createdBy
 
 
         Glide.with(holder.binding.root)
             .load(post.ImageURL) // image url
             .placeholder(R.drawable.img) // any placeholder to load at start
             .error(R.drawable.img)// any image in case of error
-           // .fitCenter()
+            // .fitCenter()
             .into(holder.binding.imageView)
 
         Glide.with(holder.binding.root)
-            .load(post.createdBy.imageUrl) // image url
+            .load(post.userImageURL) // image url
             .placeholder(R.drawable.useimage_placeholder) // any placeholder to load at start
             .error(R.drawable.useimage_placeholder)  // any image in case of error
 
@@ -75,6 +75,6 @@ class HomeRecyclerAdapter(private val listener: PostClicked) :
 
 }
 
-interface PostClicked {
+interface SavedPostClicked {
     fun onItemClick(post: Int)
 }
