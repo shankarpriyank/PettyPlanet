@@ -344,7 +344,7 @@ class CreatePostFragment : Fragment(), EasyPermissions.PermissionCallbacks {
                 binding.openCamera.isEnabled = false
                 binding.postImage.visibility = View.INVISIBLE
                 binding.uploadAnimation.visibility = View.VISIBLE
-                binding.postImage.setImageResource(0)
+                binding.postImage.setImageResource(R.drawable.img)
             }
             if (it == "Uploading Stopped") {
                 binding.postButton.isEnabled = true
