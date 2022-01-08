@@ -11,10 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pettyplanet.R
 import com.example.pettyplanet.adapters.HomeRecyclerAdapter
 import com.example.pettyplanet.adapters.PostClicked
-import com.example.pettyplanet.daos.PostDao
 import com.example.pettyplanet.databinding.FragmentHomeBinding
 import com.example.pettyplanet.models.SavedPosts
-import com.example.pettyplanet.ui.createpost.postdao
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -41,7 +39,7 @@ class HomeFragment : Fragment(), PostClicked {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        postdao = PostDao()
+
         homeViewModel =
             ViewModelProvider(this).get(HomeViewModel::class.java)
 
@@ -95,7 +93,7 @@ class HomeFragment : Fragment(), PostClicked {
 
 
         }
-        MotionToast.darkColorToast(
+        MotionToast.darkToast(
             requireActivity(),
             "Post Saved",
             "Post Saved Successfully",

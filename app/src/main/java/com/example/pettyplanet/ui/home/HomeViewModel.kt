@@ -8,7 +8,7 @@ import com.example.pettyplanet.daos.PostDao
 import com.example.pettyplanet.models.Post
 import com.example.pettyplanet.models.SavedPosts
 import com.example.pettyplanet.repository.PostsRepository
-import com.example.pettyplanet.ui.createpost.postdao
+
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -33,7 +33,7 @@ class HomeViewModel @Inject constructor(
     fun updateFeed() {
 
 
-        postdao = PostDao()
+        val postdao = PostDao()
         GlobalScope.launch {
             _feed.postValue(
 

@@ -18,36 +18,39 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat.getExternalFilesDirs
 import androidx.core.content.FileProvider
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.pettyplanet.R
-import com.example.pettyplanet.daos.PostDao
 import com.example.pettyplanet.databinding.FragmentCreatepostBinding
 import com.vmadalin.easypermissions.EasyPermissions
 import com.vmadalin.easypermissions.dialogs.SettingsDialog
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_feed.*
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
 import java.io.File
 
 
-const val PERMISSION_READ_REQUEST_CODE = 1
-const val PERMISSION_WRITE_REQUEST_CODE = 2
-
-const val IMAGE_REQUEST_CODE = 123
-const val REQUEST_CODE = 10
-
-private const val FILE_NAME = "photo.jpg"
-private lateinit var photoFile: File
-
-var mImageUri: Uri? = null
-lateinit var postdao: PostDao
-
-
 @AndroidEntryPoint
 class CreatePostFragment : Fragment(), EasyPermissions.PermissionCallbacks {
+
+
+    val CHANNEL_ID = "NotificationChannel"
+    val CHANNEL_NAME = "PostInfo"
+    val PERMISSION_READ_REQUEST_CODE = 1
+    val PERMISSION_WRITE_REQUEST_CODE = 2
+
+    val IMAGE_REQUEST_CODE = 123
+    val REQUEST_CODE = 10
+
+    private val FILE_NAME = "photo.jpg"
+    private lateinit var photoFile: File
+
+    var mImageUri: Uri? = null
+
 
     private lateinit var createpostViewModel: CreatePostViewModel
     private var _binding: FragmentCreatepostBinding? = null
@@ -61,6 +64,8 @@ class CreatePostFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
         createpostViewModel =
             ViewModelProvider(this).get(CreatePostViewModel::class.java)
 
@@ -71,7 +76,6 @@ class CreatePostFragment : Fragment(), EasyPermissions.PermissionCallbacks {
 
         binding.opengallery.setOnClickListener {
             if (!hasReadWritePermission()) {
-
 
 
                 Toast.makeText(requireContext(), "Need Permissions", Toast.LENGTH_LONG).show()
@@ -105,11 +109,21 @@ class CreatePostFragment : Fragment(), EasyPermissions.PermissionCallbacks {
 
             if (!(input == "" || mImageUri == null)) {
 
-                Toast.makeText(
-                    context,
-                    "Upload In Process ",
-                    Toast.LENGTH_SHORT
-                ).show()
+                requireActivity().nav_view.menu.forEach { it.isEnabled = false }
+
+
+
+
+                MotionToast.darkToast(
+                    requireActivity(),
+                    "Upload Has Started",
+                    "Please Stay Patient while the post is being uploaded",
+                    MotionToastStyle.INFO,
+                    MotionToast.GRAVITY_BOTTOM,
+                    MotionToast.LONG_DURATION,
+                    ResourcesCompat.getFont(requireContext(), R.font.cherry_cream_soda)
+                )
+
 
 
                 createpostViewModel.post(mImageUri, binding.desc.text.toString())
@@ -118,7 +132,11 @@ class CreatePostFragment : Fragment(), EasyPermissions.PermissionCallbacks {
                 createpostViewModel.refUpload.observe(viewLifecycleOwner, Observer {
                     if (it == "Successful") {
 
-                        MotionToast.createToast(
+                        requireActivity().nav_view.menu.forEach { menuItem ->
+                            menuItem.isEnabled = true
+                        }
+
+                        MotionToast.darkToast(
                             requireActivity(),
                             "Hurray success 😍",
                             "Upload Completed successfully!",
@@ -128,14 +146,16 @@ class CreatePostFragment : Fragment(), EasyPermissions.PermissionCallbacks {
                             ResourcesCompat.getFont(requireContext(), R.font.cherry_cream_soda)
                         )
 
-                        Toast.makeText(activity, "Uploaded Successfully", Toast.LENGTH_SHORT).show()
 
                     }
 
                     if (it == "Unsuccessful") {
+                        requireActivity().nav_view.menu.forEach { menuItem ->
+                            menuItem.isEnabled = true
+                        }
 
 
-                        MotionToast.createToast(
+                        MotionToast.darkToast(
                             requireActivity(),
                             "Failed ☹",
                             "Upload Unsuccessful!",
@@ -145,8 +165,6 @@ class CreatePostFragment : Fragment(), EasyPermissions.PermissionCallbacks {
                             ResourcesCompat.getFont(requireContext(), R.font.cherry_cream_soda)
                         )
 
-                        Toast.makeText(activity, "Uploaded Successfully", Toast.LENGTH_SHORT).show()
-                        Toast.makeText(activity, "Upload Unsuccessful", Toast.LENGTH_SHORT).show()
 
                     }
 

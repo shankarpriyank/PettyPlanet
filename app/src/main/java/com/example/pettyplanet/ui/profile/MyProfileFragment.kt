@@ -94,12 +94,14 @@ class MyProfileFragment : Fragment(), SavedPostClicked {
     }
 
     override fun onItemClick(post: Int) {
+
         val savedpost = feedAdapter.currentList[post]
         GlobalScope.launch(Dispatchers.IO) {
             profileViewModel.deleteSavedPost(savedpost)
 
         }
-        MotionToast.darkColorToast(
+
+        MotionToast.darkToast(
             requireActivity(),
             "Post Deleted ☹",
             "Post Deleted Successfully",
