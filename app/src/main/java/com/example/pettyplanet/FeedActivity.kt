@@ -14,6 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FeedActivity : AppCompatActivity() {
 
+
     private lateinit var binding: ActivityFeedBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,4 +37,5 @@ class FeedActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
+
 }

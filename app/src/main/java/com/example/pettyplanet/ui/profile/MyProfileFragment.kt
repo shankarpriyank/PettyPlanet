@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -50,11 +49,6 @@ class MyProfileFragment : Fragment(), SavedPostClicked {
 
         _binding = FragmentMyprofileBinding.inflate(inflater, container, false)
         val root: View = binding.root
-//
-//        val textView: TextView = binding.textNotifications
-//        notificationsViewModel.text.observe(viewLifecycleOwner, Observer {
-//            textView.text = it
-//        })
 
 
         profileViewModel.updateFeed()
