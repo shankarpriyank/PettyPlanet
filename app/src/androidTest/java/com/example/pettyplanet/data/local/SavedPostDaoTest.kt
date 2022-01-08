@@ -52,7 +52,7 @@ class SavedPostsDaoTests {
     }
 
     @Test
-    fun deletePostItem() = runBlocking {
+    fun deleteSavedPostItem() = runBlocking {
         val post = SavedPosts("TESTer", "userer", 1230986994098, "urlr", "urler", 2)
         dao.insertPost(post)
         dao.deletePost(post)
