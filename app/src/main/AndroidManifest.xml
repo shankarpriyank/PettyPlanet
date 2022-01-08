@@ -28,6 +28,7 @@
             android:resource="@xml/fileprovider" />
         </provider>
         <activity
+
             android:name=".FeedActivity"
             android:exported="false"
             android:label="@string/title_activity_feed" />

@@ -1,10 +1,12 @@
 package com.example.pettyplanet.ui.profile
 
+
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -41,6 +43,8 @@ class MyProfileFragment : Fragment(), SavedPostClicked {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
         profileViewModel =
             ViewModelProvider(this).get(MyProfileViewModel::class.java)
 
