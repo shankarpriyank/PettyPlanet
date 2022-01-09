@@ -65,7 +65,7 @@ Petty planet is an place where you can upload pics of abandoned pets so that the
 
 
 ## Todo/Future Of The Project
- * The upload fragment can be improved in many ways , I can compress the image the before uploading to make the upload and retrieval faster , also the whole upload process can be done in an background service
+ * The upload fragment can be improved in many ways , I can compress the image the before uploading to make the upload and retrieval faster , the upload can also be done using a background service
 * Also I wish to cache the posts using Room Db so that while the new posts are still being fetched the users has something to interact with 
 * Write more tests
 * Implement other login methods such as Facebook Login
