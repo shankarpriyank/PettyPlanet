@@ -69,7 +69,7 @@ Petty planet is an place where you can upload pics of abandoned pets so that the
 * Also I wish to cache the posts using Room Db so that while the new posts are still being fetched the users has something to interact with 
 * Write more tests
 * Implement other login methods such as Facebook Login
-* Make some improvemnets in the Ui
+* Make some improvements in the Ui
 
 
 ## License
